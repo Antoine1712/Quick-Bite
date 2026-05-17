@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Quick Bite</title>
+    <link rel="stylesheet" href="checkout.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+
+<body>
+
+<main class="checkout-container">
+
+    <h1>🧾 Validation de commande</h1>
+
+    <div id="checkout-items"></div>
+
+    <div class="checkout-summary">
+        <h3>Total :</h3>
+        <div id="checkout-total">$0.00</div>
+    </div>
+
+    <button id="confirm-order">Confirmer la commande</button>
+
+    <div class="payment-overlay" id="paymentOverlay">
+
+    <div class="payment-box">
+
+        <h2>💳 Paiement sécurisé</h2>
+
+        <form id="paymentForm">
+
+            <input id="cardName" type="text" placeholder="Nom sur la carte" required>
+
+            <input id="cardNumber" type="text" placeholder="Numéro de carte" maxlength="19" required>
+
+            <div class="payment-row">
+                <input id="cardExpiry" type="text" placeholder="MM/YY" maxlength="5" required>
+                <input id="cardCvc" type="text" placeholder="CVC" maxlength="3" required>
+            </div>
+
+            <button type="submit">Payer</button>
+
+        </form>
+
+    </div>
+
+</div>
+
+    <a href="index.html" class="back-link">← Retour au menu</a>
+
+</main>
+
+<div class="success-overlay" id="successOverlay">
+    <div class="success-box">
+        <i class="fa-solid fa-circle-check"></i>
+        <h2>Commande confirmée !</h2>
+        <p>Merci pour votre achat 🍔</p>
+    </div>
+</div>
+
+<script src="checkout.js"></script>
+</body>
+</html>
