@@ -7,26 +7,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartIcon = document.querySelector('.cart-icon');
     const sidebar = document.getElementById('sidebar');
 
-    let cartItems = [];
-    let totalAmount = 0;
+    let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
-    addToCartButtons.forEach((button, index) => {
+    // =========================
+    // SAVE CART
+    // =========================
+    function saveCart() {
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+    }
+
+    // =========================
+    // ADD TO CART
+    // =========================
+    addToCartButtons.forEach((button) => {
 
         button.addEventListener('click', () => {
 
+            const card = button.closest('.card');
+
             const item = {
-                name: document.querySelectorAll('.card .card--title')[index].textContent,
-
-                price: parseFloat(
-                    document.querySelectorAll('.price')[index].textContent.slice(1)
-                ),
-
+                id: crypto.randomUUID(),
+                name: card.dataset.name,
+                price: Number(card.dataset.price),
                 quantity: 1,
             };
 
-            const existingItem = cartItems.find(
-                (cartItem) => cartItem.name === item.name
-            );
+            const existingItem = cartItems.find(i => i.name === item.name);
 
             if (existingItem) {
                 existingItem.quantity++;
@@ -34,81 +40,118 @@ document.addEventListener('DOMContentLoaded', () => {
                 cartItems.push(item);
             }
 
-            totalAmount += item.price;
-
+            saveCart();
             updateCartUI();
         });
     });
 
+    // =========================
+    // UPDATE UI
+    // =========================
     function updateCartUI() {
-        updateCartItemCount(cartItems.length);
-        updateCartItemList();
+        updateCartCount();
+        updateCartList();
         updateCartTotal();
     }
 
-    function updateCartItemCount(count) {
+    // =========================
+    // COUNT
+    // =========================
+    function updateCartCount() {
+        const count = cartItems.reduce((sum, item) => sum + item.quantity, 0);
         cartItemCount.textContent = count;
     }
 
-    function updateCartItemList() {
+    // =========================
+    // CART LIST (VERSION PRO DOM PUR)
+    // =========================
+    function updateCartList() {
 
         cartItemsList.innerHTML = '';
 
-        cartItems.forEach((item, index) => {
+        if (cartItems.length === 0) {
+            const empty = document.createElement('p');
+            empty.textContent = "Votre panier est vide 🛒";
+            empty.style.color = "gray";
+            empty.style.textAlign = "center";
+            cartItemsList.appendChild(empty);
+            return;
+        }
+
+        cartItems.forEach((item) => {
 
             const cartItem = document.createElement('div');
+            cartItem.classList.add('individual-cart-item');
 
-            cartItem.classList.add('cart-item', 'individual-cart-item');
+            // LEFT SIDE (name + quantity)
+            const nameSpan = document.createElement('span');
+            nameSpan.textContent = `(${item.quantity}x) ${item.name}`;
 
-            cartItem.innerHTML = `
-                <span>(${item.quantity}x) ${item.name}</span>
+            // RIGHT SIDE (price + button)
+            const priceSpan = document.createElement('span');
+            priceSpan.classList.add('cart-item-price');
 
-                <span class="cart-item-price">
-                    $${(item.price * item.quantity).toFixed(2)}
+            priceSpan.textContent = `€${(item.price * item.quantity).toFixed(2)}`;
 
-                    <button class="remove-item" data-index="${index}">
-                        <i class="fa-solid fa-times"></i>
-                    </button>
-                </span>
-            `;
+            const removeBtn = document.createElement('button');
+            removeBtn.classList.add('remove-item');
+            removeBtn.dataset.id = item.id;
+
+            const icon = document.createElement('i');
+            icon.classList.add('fa-solid', 'fa-times');
+
+            removeBtn.appendChild(icon);
+            priceSpan.appendChild(removeBtn);
+
+            cartItem.appendChild(nameSpan);
+            cartItem.appendChild(priceSpan);
 
             cartItemsList.appendChild(cartItem);
         });
-
-        const removeButtons = document.querySelectorAll('.remove-item');
-
-        removeButtons.forEach((button) => {
-
-            button.addEventListener('click', (event) => {
-
-                const index = event.currentTarget.dataset.index;
-
-                removeItemFromCart(index);
-            });
-        });
     }
 
-    function removeItemFromCart(index) {
+    // =========================
+    // REMOVE ITEM (event delegation)
+    // =========================
+    cartItemsList.addEventListener('click', (e) => {
+        const btn = e.target.closest('.remove-item');
+        if (!btn) return;
 
-        const removedItem = cartItems.splice(index, 1)[0];
+        removeItem(btn.dataset.id);
+    });
 
-        totalAmount -= removedItem.price * removedItem.quantity;
-
+    function removeItem(id) {
+        cartItems = cartItems.filter(item => item.id !== id);
+        saveCart();
         updateCartUI();
     }
 
+    // =========================
+    // TOTAL
+    // =========================
     function updateCartTotal() {
-        cartTotal.textContent = `$${totalAmount.toFixed(2)}`;
+
+        const total = cartItems.reduce((sum, item) => {
+            return sum + item.price * item.quantity;
+        }, 0);
+
+        cartTotal.textContent = `€${total.toFixed(2)}`;
     }
 
+    // =========================
+    // SIDEBAR
+    // =========================
     cartIcon.addEventListener('click', () => {
         sidebar.classList.toggle('open');
     });
 
-    const closeButton = document.querySelector('.sidebar-close');
+    document.querySelector('.sidebar-close')
+        .addEventListener('click', () => {
+            sidebar.classList.remove('open');
+        });
 
-    closeButton.addEventListener('click', () => {
-        sidebar.classList.remove('open');
-    });
-
+    // =========================
+    // INIT
+    // =========================
+    updateCartUI();
 });

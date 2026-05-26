@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const successOverlay = document.getElementById('successOverlay');
 
+    // =========================
+    // SAFE LOAD CART
+    // =========================
     let cartItems = [];
 
     try {
@@ -19,11 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================
-    // TOTAL
+    // CALCUL TOTAL (source unique de vérité)
     // =========================
     function calculateTotal() {
         return cartItems.reduce((sum, item) => {
-            return sum + item.price * item.quantity;
+            return sum + (Number(item.price) * Number(item.quantity));
         }, 0);
     }
 
@@ -34,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         checkoutItemsContainer.innerHTML = '';
 
-        if (cartItems.length === 0) {
+        if (!cartItems.length) {
             checkoutItemsContainer.innerHTML = `
                 <p style="color:gray; text-align:center;">
                     🛒 Votre panier est vide
@@ -49,9 +52,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const div = document.createElement('div');
             div.classList.add('checkout-item');
 
+            const price = Number(item.price) * Number(item.quantity);
+
             div.innerHTML = `
                 <span>${item.name} (${item.quantity}x)</span>
-                <span>€${(item.price * item.quantity).toFixed(2)}</span>
+                <span>€${price.toFixed(2)}</span>
             `;
 
             checkoutItemsContainer.appendChild(div);
@@ -61,11 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================
-    // OUVRIR PAIEMENT
+    // OPEN PAYMENT
     // =========================
     confirmBtn.addEventListener('click', () => {
 
-        if (cartItems.length === 0) {
+        if (!cartItems.length) {
             alert("Votre panier est vide !");
             return;
         }
@@ -74,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =========================
-    // FORMAT CARTE
+    // CARD FORMAT
     // =========================
     const cardNumber = document.getElementById('cardNumber');
 
@@ -86,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =========================
-    // SUBMIT PAIEMENT
+    // PAYMENT SUBMIT
     // =========================
     paymentForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -96,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const expiry = document.getElementById('cardExpiry').value.trim();
         const cvc = document.getElementById('cardCvc').value.trim();
 
-        // validation simple
         if (!name || !number || !expiry || !cvc) {
             alert("Veuillez remplir tous les champs !");
             return;
@@ -105,10 +109,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // fermer paiement
         paymentOverlay.style.display = 'none';
 
-        // afficher succès
+        // success animation
         successOverlay.style.display = 'flex';
 
-        // vider panier
+        // clear cart
         setTimeout(() => {
             localStorage.removeItem('cart');
             cartItems = [];
@@ -122,6 +126,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2500);
     });
 
-    // init
+    // =========================
+    // INIT
+    // =========================
     renderCheckout();
 });
