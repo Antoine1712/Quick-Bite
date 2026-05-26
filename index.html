@@ -7,155 +7,499 @@
 
     <link rel="stylesheet" href="style.css"/>
 
-    <!-- font awesome icons cdn link -->
+    <!-- Font Awesome -->
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-/>
+    />
 </head>
+
 <body>
+
+    <!-- HEADER -->
     <header class="header">
+
         <nav class="header--menu">
+
             <div class="burger--icon">
                 <i class="fa-solid fa-bars"></i>
             </div>
+
             <div class="search--box">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" placeholder="Rechercher..." />
             </div>
+
             <div class="menu--icons">
+
                 <i class="fa-solid fa-bowl-food"></i>
+
                 <div class="cart-icon">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <span>0</span>
                 </div>
+
             </div>
+
         </nav>
+
     </header>
 
-    <!--cover section-->
+    <!-- COVER -->
     <section class="cover">
+
         <div class="cover--overlay">
             <h1>Quick Bite</h1>
             <span class="slogan">Le plaisir rapide et savoureux</span>
         </div>
+
     </section>
 
     <main>
-        <h2 class="section-heading">Nos Catégories</h2> 
+
+        <!-- CATEGORIES MENU -->
+        <h2 class="section-heading">Nos Catégories</h2>
+
         <div class="menu--list">
-            <div class="menu--item">
-                <img src="./image/food-item-10.jpg" alt="" />
-                <h5>Salade</h5>
+
+            <div class="menu--item" data-target="salades">
+                <img src="./image/food-item-10.jpg" alt="">
+                <h5>Salades</h5>
             </div>
-            <div class="menu--item">
-                <img src="./image/food-item-9.jpg" alt="" />
-                <h5>Burger</h5>
+
+            <div class="menu--item" data-target="burgers">
+                <img src="./image/food-item-9.jpg" alt="">
+                <h5>Burgers</h5>
             </div>
-            <div class="menu--item">
-                <img src="./image/food-item-3.jpg" alt="" />
-                <h5>Milkshake</h5>
+
+            <div class="menu--item" data-target="pizzas">
+                <img src="./image/food-item-6.jpg" alt="">
+                <h5>Pizzas</h5>
             </div>
-            <div class="menu--item">
-                <img src="./image/food-item-4.jpg" alt="" />
-                <h5>Frites</h5>
-            </div>
-            <div class="menu--item">
-                <img src="./image/food-item-5.jpg" alt="" />
+
+            <div class="menu--item" data-target="nuggets">
+                <img src="./image/food-item-5.jpg" alt="">
                 <h5>Nuggets</h5>
             </div>
-            <div class="menu--item">
-                <img src="./image/food-item-6.jpg" alt="" />
-                <h5>Pizza</h5>
+
+            <div class="menu--item" data-target="frites">
+                <img src="./image/food-item-4.jpg" alt="">
+                <h5>Frites</h5>
             </div>
-            <div class="menu--item">
-                <img src="./image/food-item-7.jpg" alt="" />
-                <h5>Boisson</h5>
+
+            <div class="menu--item" data-target="boissons">
+                <img src="./image/food-item-7.jpg" alt="">
+                <h5>Boissons</h5>
             </div>
-            <div class="menu--item">
-                <img src="./image/food-item-8.jpg" alt="" />
+
+            <div class="menu--item" data-target="cafe">
+                <img src="./image/food-item-8.jpg" alt="">
                 <h5>Café</h5>
+            </div>
+
+            <div class="menu--item" data-target="milkshakes">
+                <img src="./image/food-item-3.jpg" alt="">
+                <h5>Milkshakes</h5>
+            </div>
+
+        </div>
+
+        <!-- ===================== -->
+        <!-- 🥗 SALADES -->
+        <!-- ===================== -->
+
+        <h2 class="section-heading" id="salades">Salades</h2>
+
+        <div class="card--list">
+            <div class="card">
+                <img src="./image/food-item-11.jpg" alt="">
+                <h4 class="card--title">Salade César</h4>
+                <div class="card--price">
+                    <div class="price">€12.00</div>
+                    <i class="fa-solid fa-plus add-to-cart"></i>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="./image/food-item-14.png" alt="">
+                <h4 class="card--title">Salade Italienne</h4>
+                <div class="card--price">
+                    <div class="price">€13.00</div>
+                    <i class="fa-solid fa-plus add-to-cart"></i>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="./image/food-item-12.jpg" alt="">
+                <h4 class="card--title">Salade Poulet</h4>
+                <div class="card--price">
+                    <div class="price">€15.00</div>
+                    <i class="fa-solid fa-plus add-to-cart"></i>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="./image/food-item-10.jpg" alt="">
+                <h4 class="card--title">Salade Veggie</h4>
+                <div class="card--price">
+                    <div class="price">€13.00</div>
+                    <i class="fa-solid fa-plus add-to-cart"></i>
+                </div>
             </div>
         </div>
 
-        <!--card item section-->
-        <h2 class="section-heading">Nos Produits</h2>
+        <!-- 🍔 BURGERS -->
+        <h2 class="section-heading" id="burgers">Burgers</h2>
+
         <div class="card--list">
             <div class="card">
-                <img src="./image/food-item-10.jpg" alt="" />
-                <h4 class="card--title">Salade</h4>
-
+                <img src="./image/food-item-13.jpg" alt="">
+                <h4 class="card--title">Classic Burger</h4>
                 <div class="card--price">
-                    <div class="price">$6.00</div>
+                    <div class="price">€9.00</div>
                     <i class="fa-solid fa-plus add-to-cart"></i>
                 </div>
             </div>
+
             <div class="card">
-                <img src="./image/food-item-9.jpg" alt="" />
-                <h4 class="card--title">Burger</h4>
-
+                <img src="./image/food-item-15.png" alt="">
+                <h4 class="card--title">Cheese Burger</h4>
                 <div class="card--price">
-                    <div class="price">$12.00</div>
+                    <div class="price">€8.50</div>
                     <i class="fa-solid fa-plus add-to-cart"></i>
                 </div>
             </div>
+
             <div class="card">
-                <img src="./image/food-item-5.jpg" alt="" />
-                <h4 class="card--title">Nuggets</h4>
-
+                <img src="./image/food-item-9.jpg" alt="">
+                <h4 class="card--title">Double Burger</h4>
                 <div class="card--price">
-                    <div class="price">$6.50</div>
+                    <div class="price">€11.00</div>
                     <i class="fa-solid fa-plus add-to-cart"></i>
                 </div>
             </div>
+
             <div class="card">
-                <img src="./image/food-item-6.jpg" alt="" />
-                <h4 class="card--title">Pizza</h4>
-
+                <img src="./image/food-item-16.png" alt="">
+                <h4 class="card--title">Chicken Burger</h4>
                 <div class="card--price">
-                    <div class="price">$10.50</div>
+                    <div class="price">€12.50</div>
                     <i class="fa-solid fa-plus add-to-cart"></i>
                 </div>
             </div>
+        </div>
+
+        <!-- 🍕 PIZZAS -->
+        <h2 class="section-heading" id="pizzas">Pizzas</h2>
+
+        <div class="card--list">
             <div class="card">
-                <img src="./image/food-item-8.jpg" alt="" />
-                <h4 class="card--title">Café</h4>
-
+                <img src="./image/food-item-17.png" alt="">
+                <h4 class="card--title">Margherita</h4>
                 <div class="card--price">
-                    <div class="price">$2.20</div>
+                    <div class="price">€12.00</div>
                     <i class="fa-solid fa-plus add-to-cart"></i>
                 </div>
             </div>
 
-            <!-- cart sidebar section -->
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-close">
+            <div class="card">
+                <img src="./image/food-item-18.png" alt="">
+                <h4 class="card--title">Pepperoni</h4>
+                <div class="card--price">
+                    <div class="price">€12.50</div>
+                    <i class="fa-solid fa-plus add-to-cart"></i>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="./image/food-item-19.png" alt="">
+                <h4 class="card--title">4 Fromages</h4>
+                <div class="card--price">
+                    <div class="price">€14.00</div>
+                    <i class="fa-solid fa-plus add-to-cart"></i>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="./image/food-item-20.png" alt="">
+                <h4 class="card--title">Végétarienne</h4>
+                <div class="card--price">
+                    <div class="price">€11.50</div>
+                    <i class="fa-solid fa-plus add-to-cart"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🍗 NUGGETS -->
+        <h2 class="section-heading" id="nuggets">Nuggets</h2>
+
+<div class="card--list">
+
+    <div class="card">
+        <img src="./image/food-item-24.png" alt="">
+        <h4 class="card--title">Nuggets x4</h4>
+
+        <div class="card--price">
+            <div class="price">€4.00</div>
+            <i class="fa-solid fa-plus add-to-cart"></i>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="./image/food-item-24.png" alt="">
+        <h4 class="card--title">Nuggets x6</h4>
+
+        <div class="card--price">
+            <div class="price">€6.00</div>
+            <i class="fa-solid fa-plus add-to-cart"></i>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="./image/food-item-24.png" alt="">
+        <h4 class="card--title">Nuggets x9</h4>
+
+        <div class="card--price">
+            <div class="price">€8.00</div>
+            <i class="fa-solid fa-plus add-to-cart"></i>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="./image/food-item-24.png" alt="">
+        <h4 class="card--title">Nuggets x4 BBQ</h4>
+
+        <div class="card--price">
+            <div class="price">€5.00</div>
+            <i class="fa-solid fa-plus add-to-cart"></i>
+        </div>
+    </div>
+
+</div>
+
+        <!-- FRITES -->
+        <h2 class="section-heading" id="frites">Frites</h2>
+
+<div class="card--list">
+
+    <div class="card">
+        <img src="./image/food-item-22.png" alt="">
+        <h4 class="card--title">Frites x10</h4>
+
+        <div class="card--price">
+            <div class="price">€4.00</div>
+            <i class="fa-solid fa-plus add-to-cart"></i>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="./image/food-item-22.png" alt="">
+        <h4 class="card--title">Frites x30</h4>
+
+        <div class="card--price">
+            <div class="price">€6.00</div>
+            <i class="fa-solid fa-plus add-to-cart"></i>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="./image/food-item-21.png" alt="">
+        <h4 class="card--title">Frites Douces</h4>
+
+        <div class="card--price">
+            <div class="price">€8.00</div>
+            <i class="fa-solid fa-plus add-to-cart"></i>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="./image/food-item-23.png" alt="">
+        <h4 class="card--title">Frites Cheddar</h4>
+
+        <div class="card--price">
+            <div class="price">€7.00</div>
+            <i class="fa-solid fa-plus add-to-cart"></i>
+        </div>
+    </div>
+
+</div>
+
+        <!-- BOISSONS -->
+        <h2 class="section-heading" id="boissons">Boissons</h2>
+
+<div class="card--list">
+
+    <div class="card">
+        <img src="./image/food-item-25.png" alt="">
+        <h4 class="card--title">Vittel 33cl</h4>
+
+        <div class="card--price">
+            <div class="price">€2.00</div>
+            <i class="fa-solid fa-plus add-to-cart"></i>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="./image/food-item-26.png" alt="">
+        <h4 class="card--title">Coca Cola</h4>
+
+        <div class="card--price">
+            <div class="price">€2.20</div>
+            <i class="fa-solid fa-plus add-to-cart"></i>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="./image/food-item-27.png" alt="">
+        <h4 class="card--title">Lipton</h4>
+
+        <div class="card--price">
+            <div class="price">€3.00</div>
+            <i class="fa-solid fa-plus add-to-cart"></i>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="./image/food-item-28.png" alt="">
+        <h4 class="card--title">Pepsi</h4>
+
+        <div class="card--price">
+            <div class="price">€2.50</div>
+            <i class="fa-solid fa-plus add-to-cart"></i>
+        </div>
+    </div>
+
+</div>
+
+        <!-- CAFÉ -->
+        <h2 class="section-heading" id="cafe">Café</h2>
+
+<div class="card--list">
+
+    <div class="card">
+        <img src="./image/food-item-8.jpg" alt="">
+        <h4 class="card--title">Café</h4>
+
+        <div class="card--price">
+            <div class="price">€2.50</div>
+            <i class="fa-solid fa-plus add-to-cart"></i>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="./image/food-item-8.jpg" alt="">
+        <h4 class="card--title">Espresso</h4>
+
+        <div class="card--price">
+            <div class="price">€3.00</div>
+            <i class="fa-solid fa-plus add-to-cart"></i>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="./image/food-item-8.jpg" alt="">
+        <h4 class="card--title">Cappuccino</h4>
+
+        <div class="card--price">
+            <div class="price">€4.50</div>
+            <i class="fa-solid fa-plus add-to-cart"></i>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="./image/food-item-8.jpg" alt="">
+        <h4 class="card--title">Latte</h4>
+
+        <div class="card--price">
+            <div class="price">€5.50</div>
+            <i class="fa-solid fa-plus add-to-cart"></i>
+        </div>
+    </div>
+
+</div>
+
+        <!-- MILKSHAKES -->
+        <h2 class="section-heading" id="milkshakes">Milkshakes</h2>
+
+<div class="card--list">
+
+    <div class="card">
+        <img src="./image/food-item-3.jpg" alt="">
+        <h4 class="card--title">Milkshakes Chocolat</h4>
+
+        <div class="card--price">
+            <div class="price">€5.50</div>
+            <i class="fa-solid fa-plus add-to-cart"></i>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="./image/food-item-30.png" alt="">
+        <h4 class="card--title">Milkshakes Vanille & Cerise</h4>
+
+        <div class="card--price">
+            <div class="price">€5.50</div>
+            <i class="fa-solid fa-plus add-to-cart"></i>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="./image/food-item-31.png" alt="">
+        <h4 class="card--title">Milkshakes Banane</h4>
+
+        <div class="card--price">
+            <div class="price">€6.50</div>
+            <i class="fa-solid fa-plus add-to-cart"></i>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="./image/food-item-32.png" alt="">
+        <h4 class="card--title">Milkshakes Fraise & Chantilly</h4>
+
+        <div class="card--price">
+            <div class="price">€5.50</div>
+            <i class="fa-solid fa-plus add-to-cart"></i>
+        </div>
+    </div>
+
+</div>
+
+    </main>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+
+        <div class="sidebar-close">
             <i class="fa-solid fa-close"></i>
         </div>
 
         <div class="cart-menu">
             <h3>Mon Panier</h3>
-        <div class="cart-items"></div>
+            <div class="cart-items"></div>
         </div>
 
         <div class="sidebar--footer">
+
             <div class="total--amount">
                 <h5>Total</h5>
-            <div class="cart-total">$0.00</div>
+                <div class="cart-total">€ 0.00</div>
+            </div>
+
+            <a href="checkout.html">
+                <button class="checkout-btn">
+                    Passer la commande
+                </button>
+            </a>
+
         </div>
 
-        <a href="checkout.html">
-            <button class="checkout-btn">Passer la commande</button>
-        </a>
     </div>
-</div>
 
-<!-- ✅ ICI : overlay (IMPORTANT) -->
-<div class="overlay" id="overlay"></div>
+    <!-- OVERLAY -->
+    <div class="overlay" id="overlay"></div>
 
-</div>
-</main>
+    <script src="main.js"></script>
 
-<script src="main.js"></script>
 </body>
 </html>

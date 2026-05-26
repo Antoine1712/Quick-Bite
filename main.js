@@ -6,50 +6,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartTotal = document.querySelector('.cart-total');
     const cartIcon = document.querySelector('.cart-icon');
     const sidebar = document.getElementById('sidebar');
-    const closeButton = document.querySelector('.sidebar-close');
-    const overlay = document.getElementById('overlay');
 
-    // 🧠 Load cart from LocalStorage
-    let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    let cartItems = [];
+    let totalAmount = 0;
 
-    // =========================
-    // 💾 SAVE CART
-    // =========================
-    function saveCart() {
-        localStorage.setItem('cart', JSON.stringify(cartItems));
-    }
-
-    // =========================
-    // 💰 TOTAL
-    // =========================
-    function calculateTotal() {
-        return cartItems.reduce((sum, item) =>
-            sum + item.price * item.quantity, 0
-        );
-    }
-
-    // =========================
-    // 🔢 TOTAL ITEMS COUNT
-    // =========================
-    function getTotalItemsCount() {
-        return cartItems.reduce((total, item) =>
-            total + item.quantity, 0
-        );
-    }
-
-    // =========================
-    // 🛒 ADD TO CART
-    // =========================
     addToCartButtons.forEach((button, index) => {
 
         button.addEventListener('click', () => {
 
             const item = {
                 name: document.querySelectorAll('.card .card--title')[index].textContent,
+
                 price: parseFloat(
                     document.querySelectorAll('.price')[index].textContent.slice(1)
                 ),
-                quantity: 1
+
+                quantity: 1,
             };
 
             const existingItem = cartItems.find(
@@ -62,30 +34,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 cartItems.push(item);
             }
 
+            totalAmount += item.price;
+
             updateCartUI();
         });
     });
 
-    // =========================
-    // 🧠 UPDATE UI
-    // =========================
     function updateCartUI() {
+        updateCartItemCount(cartItems.length);
         updateCartItemList();
-        updateCartItemCount();
         updateCartTotal();
-        saveCart();
     }
 
-    // =========================
-    // 🔢 COUNT
-    // =========================
-    function updateCartItemCount() {
-        cartItemCount.textContent = getTotalItemsCount();
+    function updateCartItemCount(count) {
+        cartItemCount.textContent = count;
     }
 
-    // =========================
-    // 🧾 RENDER CART
-    // =========================
     function updateCartItemList() {
 
         cartItemsList.innerHTML = '';
@@ -93,95 +57,58 @@ document.addEventListener('DOMContentLoaded', () => {
         cartItems.forEach((item, index) => {
 
             const cartItem = document.createElement('div');
+
             cartItem.classList.add('cart-item', 'individual-cart-item');
 
             cartItem.innerHTML = `
-                <span class="item-name">
-                    (${item.quantity}x) ${item.name}
-                </span>
+                <span>(${item.quantity}x) ${item.name}</span>
 
-                <div class="cart-actions">
-
-                    <button class="qty-btn decrease" data-index="${index}">-</button>
-
-                    <span class="cart-item-price">
-                        $${(item.price * item.quantity).toFixed(2)}
-                    </span>
-
-                    <button class="qty-btn increase" data-index="${index}">+</button>
+                <span class="cart-item-price">
+                    $${(item.price * item.quantity).toFixed(2)}
 
                     <button class="remove-item" data-index="${index}">
-                        <i class="fa-solid fa-xmark"></i>
+                        <i class="fa-solid fa-times"></i>
                     </button>
-
-                </div>
+                </span>
             `;
 
             cartItemsList.appendChild(cartItem);
         });
+
+        const removeButtons = document.querySelectorAll('.remove-item');
+
+        removeButtons.forEach((button) => {
+
+            button.addEventListener('click', (event) => {
+
+                const index = event.currentTarget.dataset.index;
+
+                removeItemFromCart(index);
+            });
+        });
     }
 
-    // =========================
-    // ➕ ➖ ❌ CART ACTIONS
-    // =========================
-    cartItemsList.addEventListener('click', (event) => {
+    function removeItemFromCart(index) {
 
-        const target = event.target;
+        const removedItem = cartItems.splice(index, 1)[0];
 
-        const index = target.dataset.index;
-
-        if (target.classList.contains('increase')) {
-            cartItems[index].quantity++;
-        }
-
-        if (target.classList.contains('decrease')) {
-            cartItems[index].quantity--;
-
-            if (cartItems[index].quantity <= 0) {
-                cartItems.splice(index, 1);
-            }
-        }
-
-        if (target.closest('.remove-item')) {
-            const removeIndex = target.closest('.remove-item').dataset.index;
-            cartItems.splice(removeIndex, 1);
-        }
+        totalAmount -= removedItem.price * removedItem.quantity;
 
         updateCartUI();
-    });
+    }
 
-    // =========================
-    // 💰 TOTAL UPDATE
-    // =========================
     function updateCartTotal() {
-        cartTotal.textContent = `$${calculateTotal().toFixed(2)}`;
+        cartTotal.textContent = `$${totalAmount.toFixed(2)}`;
     }
 
-    // =========================
-    // 🧾 SIDEBAR OPEN
-    // =========================
     cartIcon.addEventListener('click', () => {
-        sidebar.classList.add('open');
-        if (overlay) overlay.classList.add('active');
+        sidebar.classList.toggle('open');
     });
 
-    // =========================
-    // ❌ SIDEBAR CLOSE
-    // =========================
-    function closeSidebar() {
+    const closeButton = document.querySelector('.sidebar-close');
+
+    closeButton.addEventListener('click', () => {
         sidebar.classList.remove('open');
-        if (overlay) overlay.classList.remove('active');
-    }
-
-    closeButton.addEventListener('click', closeSidebar);
-
-    if (overlay) {
-        overlay.addEventListener('click', closeSidebar);
-    }
-
-    // =========================
-    // 🚀 INIT
-    // =========================
-    updateCartUI();
+    });
 
 });
