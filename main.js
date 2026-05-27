@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================
-    // CART LIST (VERSION PRO DOM PUR)
+    // CART LIST
     // =========================
     function updateCartList() {
 
@@ -83,11 +83,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const cartItem = document.createElement('div');
             cartItem.classList.add('individual-cart-item');
 
-            // LEFT SIDE (name + quantity)
+            // LEFT SIDE
             const nameSpan = document.createElement('span');
             nameSpan.textContent = `(${item.quantity}x) ${item.name}`;
 
-            // RIGHT SIDE (price + button)
+            // RIGHT SIDE
             const priceSpan = document.createElement('span');
             priceSpan.classList.add('cart-item-price');
 
@@ -111,17 +111,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================
-    // REMOVE ITEM (event delegation)
+    // REMOVE ITEM
     // =========================
     cartItemsList.addEventListener('click', (e) => {
+
         const btn = e.target.closest('.remove-item');
+
         if (!btn) return;
 
         removeItem(btn.dataset.id);
     });
 
     function removeItem(id) {
+
         cartItems = cartItems.filter(item => item.id !== id);
+
         saveCart();
         updateCartUI();
     }
@@ -151,7 +155,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     // =========================
+    // MENU NAVIGATION
+    // =========================
+    const menuItems = document.querySelectorAll('.menu--item');
+
+    menuItems.forEach((item) => {
+
+        item.addEventListener('click', () => {
+
+            const target = item.dataset.target;
+
+            const section = document.getElementById(target);
+
+            if (section) {
+
+                section.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+            }
+
+        });
+
+    });
+
+    // =========================
     // INIT
     // =========================
     updateCartUI();
+
 });
